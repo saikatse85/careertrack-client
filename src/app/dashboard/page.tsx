@@ -8,6 +8,7 @@ import RecentApplications from "@/components/dashboard/RecentApplications";
 import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton";
 import EmptyDashboard from "@/components/dashboard/EmptyDashboard";
 import { apiFetch } from "@/lib/api";
+import { Application } from "@/types";
 
 interface DashboardStats {
   totalApplications: number;
@@ -17,16 +18,6 @@ interface DashboardStats {
   interview: number;
   rejected: number;
   offer: number;
-}
-
-interface RecentApplication {
-  id: string;
-  companyName: string;
-  jobTitle: string;
-  status:
-    "Saved" | "Applied" | "Assessment" | "Interview" | "Rejected" | "Offer";
-  source: string;
-  applicationDate: string;
 }
 
 export default function DashboardPage() {
@@ -42,7 +33,7 @@ export default function DashboardPage() {
     offer: 0,
   });
 
-  const [applications, setApplications] = useState<RecentApplication[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
 
   useEffect(() => {
     fetchDashboard();
@@ -54,9 +45,7 @@ export default function DashboardPage() {
 
       const [statsRes, appsRes] = await Promise.all([
         apiFetch<{ data: DashboardStats }>("/dashboard/stats"),
-        apiFetch<{ data: RecentApplication[] }>(
-          "/applications?limit=5&sort=newest",
-        ),
+        apiFetch<{ data: Application[] }>("/applications?limit=5&sort=newest"),
       ]);
 
       setStats(statsRes.data);
