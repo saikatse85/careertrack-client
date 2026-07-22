@@ -63,7 +63,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
-
     try {
       const response = await apiFetch<MeResponse>("/auth/me");
 
