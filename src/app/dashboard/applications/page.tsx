@@ -324,12 +324,12 @@ export default function ApplicationsPage() {
       "
           >
             <option>All</option>
-            <option>Saved</option>
-            <option>Applied</option>
-            <option>Assessment</option>
-            <option>Interview</option>
-            <option>Rejected</option>
-            <option>Offer</option>
+            <option>SAVED</option>
+            <option>APPLIED</option>
+            <option>ASSESSMENT</option>
+            <option>INTERVIEW</option>
+            <option>REJECTED</option>
+            <option>OFFER</option>
           </select>
 
           {/* Source */}
@@ -359,13 +359,13 @@ export default function ApplicationsPage() {
       "
           >
             <option>All</option>
-            <option>LinkedIn</option>
-            <option>Bdjobs</option>
-            <option>Indeed</option>
-            <option>Wellfound</option>
-            <option>Facebook</option>
-            <option>Referral</option>
-            <option>Other</option>
+            <option>LINKEDIN</option>
+            <option>BDJOBS</option>
+            <option>INDEED</option>
+            <option>WELLFOUND</option>
+            <option>FACEBOOK</option>
+            <option>REFERRAL</option>
+            <option>OTHER</option>
           </select>
 
           {/* Sort */}

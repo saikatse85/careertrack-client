@@ -7,8 +7,8 @@ interface Props {
 export default function ModalHeader({ onClose }: Props) {
   return (
     <div className="flex items-center justify-between border-b px-6 py-4">
-      <h2 className="text-lg text-gray-700 dark:text-white font-semibold">
-        Edit Application
+      <h2 className="text-5xl text-gray-700 dark:text-white font-semibold">
+        Update Application
       </h2>
 
       <button
