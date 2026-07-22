@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLoading } from "@/context/LoadingContext";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Swal from "sweetalert2";
 
 import { apiFetch } from "@/lib/api";
@@ -62,7 +62,7 @@ const SOURCE_OPTIONS = [
   { label: "Other", value: "OTHER" },
 ];
 
-const pageVariants = {
+const pageVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 20,
