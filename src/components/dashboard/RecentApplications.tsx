@@ -9,19 +9,10 @@ import {
 } from "lucide-react";
 import ViewApplicationModal from "../applications/ViewApplicationModal/ViewApplicationModal";
 import { useState } from "react";
-
-export interface RecentApplication {
-  id: string;
-  companyName: string;
-  jobTitle: string;
-  status:
-    "Saved" | "Applied" | "Assessment" | "Interview" | "Rejected" | "Offer";
-  source: string;
-  applicationDate: string;
-}
+import { Application } from "@/types";
 
 interface RecentApplicationsProps {
-  applications: RecentApplication[];
+  applications: Application[];
 }
 
 const statusStyles = {
@@ -46,7 +37,7 @@ export default function RecentApplications({
   const [viewOpen, setViewOpen] = useState(false);
 
   const [selectedApplication, setSelectedApplication] =
-    useState<RecentApplication | null>(null);
+    useState<Application | null>(null);
   return (
     <section className="mt-10">
       {/* Header */}
