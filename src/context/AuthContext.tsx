@@ -73,8 +73,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
       localStorage.removeItem("access-token");
 
-      document.cookie = "access-token=; path=/; max-age=0; SameSite=Lax";
-
       setUser(null);
     } finally {
       setLoading(false);
@@ -90,7 +88,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("access-token", response.token);
 
     // Server middleware storage
-    document.cookie = `access-token=${response.token}; path=/; max-age=86400; SameSite=Lax`;
 
     setUser(response.data);
 
@@ -108,8 +105,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("access-token");
-
-    document.cookie = "access-token=; path=/; max-age=0; SameSite=Lax";
 
     setUser(null);
 
