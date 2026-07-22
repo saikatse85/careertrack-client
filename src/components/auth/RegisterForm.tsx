@@ -33,6 +33,10 @@ const registerSchema = z
     password: z.string().min(6, "Password must be at least 6 characters."),
 
     confirmPassword: z.string().min(6, "Confirm your password."),
+
+    terms: z.boolean().refine((value) => value === true, {
+      message: "You must accept the Terms & Conditions.",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
@@ -64,6 +68,7 @@ export default function RegisterForm({ onToggle }: RegisterFormProps) {
       email: "",
       password: "",
       confirmPassword: "",
+      terms: false,
     },
   });
 
@@ -150,8 +155,9 @@ export default function RegisterForm({ onToggle }: RegisterFormProps) {
         <input
           id="terms"
           type="checkbox"
-          {...register("terms")}
-          className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          {...register("terms", {
+            required: "You must accept the Terms & Conditions.",
+          })}
         />
 
         <label
