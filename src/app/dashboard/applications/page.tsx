@@ -1181,23 +1181,23 @@ export default function ApplicationsPage() {
 
 function StatusBadge({ status }: { status: Application["status"] }) {
   const colors: Record<Application["status"], string> = {
-    Saved:
-      "border border-gray-200 bg-gray-100 text-gray-700 dark:text-gray-200 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300",
+    SAVED:
+      "border border-gray-200 bg-gray-100 text-gray-700 dark:text-gray-200 shadow-sm dark:border-gray-700 dark:bg-gray-800",
 
-    Applied:
-      "border border-blue-200 bg-blue-100 text-blue-700 dark:text-gray-200 shadow-sm dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+    APPLIED:
+      "border border-blue-200 bg-blue-100 text-blue-700 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
 
-    Assessment:
-      "border border-amber-200 bg-amber-100 text-amber-700 dark:text-gray-200 shadow-sm dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    ASSESSMENT:
+      "border border-purple-200 bg-purple-100 text-purple-700 dark:border-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
 
-    Interview:
-      "border border-purple-200 bg-purple-100 text-purple-700 dark:text-gray-200 shadow-sm dark:border-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+    INTERVIEW:
+      "border border-amber-200 bg-amber-100 text-amber-700 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
 
-    Rejected:
-      "border border-red-200 bg-red-100 text-red-700  shadow-sm dark:border-red-800 dark:bg-red-900/30 dark:text-red-300",
+    REJECTED:
+      "border border-red-200 bg-red-100 text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300",
 
-    Offer:
-      "border border-green-200 bg-green-100 text-green-700 shadow-sm dark:border-green-800 dark:bg-green-900/30 dark:text-green-300",
+    OFFER:
+      "border border-green-200 bg-green-100 text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-300",
   };
 
   return (
