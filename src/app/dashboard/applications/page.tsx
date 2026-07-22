@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+import type { Application } from "@/types";
+
 import Swal from "sweetalert2";
 
 import {
@@ -16,27 +18,6 @@ import {
 import { apiFetch } from "@/lib/api";
 import EditApplicationModal from "@/components/applications/EditApplicationModal/EditApplicationModal";
 import ViewApplicationModal from "@/components/applications/ViewApplicationModal/ViewApplicationModal";
-
-interface Application {
-  id: string;
-  companyName: string;
-  jobTitle: string;
-  jobUrl?: string;
-  source:
-    | "LinkedIn"
-    | "Bdjobs"
-    | "Indeed"
-    | "Wellfound"
-    | "Facebook"
-    | "Referral"
-    | "Other";
-
-  status:
-    "Saved" | "Applied" | "Assessment" | "Interview" | "Rejected" | "Offer";
-
-  applicationDate: string;
-  notes?: string;
-}
 
 export default function ApplicationsPage() {
   /* =====================================
