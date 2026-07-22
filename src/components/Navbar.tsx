@@ -261,12 +261,12 @@ export default function Navbar() {
                 py-6
                 "
             >
-              <MobileLink href="/" text="Home" />
+              <NavMenuLink href="/" text="Home" />
 
               {user ? (
                 <>
-                  <MobileLink href="/dashboard" text="Dashboard" />
-                  <MobileLink href="/dashboard" text={user.name} />
+                  <NavMenuLink href="/dashboard" text="Dashboard" />
+                  <NavMenuLink href="/dashboard" text={user.name} />
 
                   <button
                     onClick={() => {

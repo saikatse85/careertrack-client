@@ -94,9 +94,32 @@ export default function DashboardNavbar() {
 
           <Link
             href="/"
-            className="hidden rounded-xl border border-gray-300 px-4 py-2.5 font-medium text-gray-700 transition hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 lg:flex"
+            className="
+    inline-flex
+    items-center
+    gap-2
+    rounded-xl
+    border
+    border-gray-300
+    px-3
+    py-2.5
+    text-gray-700
+    transition-all
+    duration-300
+    hover:-translate-y-0.5
+    hover:border-indigo-500
+    hover:bg-gradient-to-r
+    hover:from-cyan-500
+    hover:via-indigo-600
+    hover:to-violet-600
+    hover:text-white
+    hover:shadow-lg
+    dark:border-gray-700
+    dark:text-gray-300
+"
           >
             <House size={20} />
+            <span className="hidden lg:inline">Home</span>
           </Link>
 
           {/* Theme */}
@@ -132,8 +155,7 @@ export default function DashboardNavbar() {
           {/* User */}
           <Link
             href="/dashboard/profile"
-            className="flex items-center gap-3 inline-flex
-    items-center
+            className="inline-flex items-center gap-3
     rounded-full
     border
     border-gray-200
