@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Menu, X, Sun, Moon, BriefcaseBusiness, UserPlus } from "lucide-react";
 import { useTheme } from "next-themes";
 import { AuthContext } from "@/context/AuthContext";
+import NavMenuLink from "./NavMenuLink";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -117,15 +118,39 @@ export default function Navbar() {
               gap-8
               "
             >
-              <NavLink href="/" text="Home" />
+              <NavMenuLink href="/" text="Home" />
 
               {user ? (
                 <>
-                  <NavLink href="/dashboard" text="Dashboard" />
+                  <NavMenuLink href="/dashboard" text="Dashboard" />
 
                   <Link
                     href="/dashboard"
-                    className="font-medium text-gray-700 transition hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400"
+                    className="inline-flex
+    items-center
+    rounded-full
+    border
+    border-gray-200
+    bg-white/70
+    px-4
+    py-2
+    font-semibold
+    text-gray-700
+    backdrop-blur-md
+    transition-all
+    duration-300
+    hover:-translate-y-0.5
+    hover:border-indigo-500
+    hover:bg-gradient-to-r
+    hover:from-cyan-500
+    hover:via-indigo-600
+    hover:to-violet-600
+    hover:text-white
+    hover:shadow-xl
+    dark:border-gray-700
+    dark:bg-gray-900/60
+    dark:text-gray-300
+    dark:hover:text-white"
                   >
                     {user.name}
                   </Link>
@@ -139,7 +164,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <NavLink href="/auth" text="Login" />
+                  <NavMenuLink href="/auth" text="Login" />
 
                   <Link
                     href="/auth"

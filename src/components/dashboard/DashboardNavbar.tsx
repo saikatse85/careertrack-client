@@ -132,7 +132,31 @@ export default function DashboardNavbar() {
           {/* User */}
           <Link
             href="/dashboard/profile"
-            className="flex items-center gap-3 rounded-xl border border-gray-300 px-3 py-2 transition hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+            className="flex items-center gap-3 inline-flex
+    items-center
+    rounded-full
+    border
+    border-gray-200
+    bg-white/70
+    px-4
+    py-2
+    font-semibold
+    text-gray-700
+    backdrop-blur-md
+    transition-all
+    duration-300
+    hover:-translate-y-0.5
+    hover:border-indigo-500
+    hover:bg-gradient-to-r
+    hover:from-cyan-500
+    hover:via-indigo-600
+    hover:to-violet-600
+    hover:text-white
+    hover:shadow-xl
+    dark:border-gray-700
+    dark:bg-gray-900/60
+    dark:text-gray-300
+    dark:hover:text-white"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">
               {initials}
