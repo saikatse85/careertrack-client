@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsGrid from "@/components/dashboard/StatsGrid";
@@ -9,6 +9,7 @@ import DashboardSkeleton from "@/components/dashboard/DashboardSkeleton";
 import EmptyDashboard from "@/components/dashboard/EmptyDashboard";
 import { apiFetch } from "@/lib/api";
 import { Application } from "@/types";
+import { AuthContext } from "@/context/AuthContext";
 
 interface DashboardStats {
   totalApplications: number;
@@ -22,6 +23,7 @@ interface DashboardStats {
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
+  const auth = useContext(AuthContext);
 
   const [stats, setStats] = useState<DashboardStats>({
     totalApplications: 0,
@@ -36,8 +38,12 @@ export default function DashboardPage() {
   const [applications, setApplications] = useState<Application[]>([]);
 
   useEffect(() => {
+    if (auth?.loading) return;
+
+    if (!auth?.user) return;
+
     fetchDashboard();
-  }, []);
+  }, [auth?.loading, auth?.user]);
 
   const fetchDashboard = async () => {
     try {
