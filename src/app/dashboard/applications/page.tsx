@@ -18,6 +18,7 @@ import {
 import { apiFetch } from "@/lib/api";
 import EditApplicationModal from "@/components/applications/EditApplicationModal/EditApplicationModal";
 import ViewApplicationModal from "@/components/applications/ViewApplicationModal/ViewApplicationModal";
+import AICareerCoachModal from "@/components/ai/AICareerCoachModal";
 
 export default function ApplicationsPage() {
   /* =====================================
@@ -41,6 +42,10 @@ export default function ApplicationsPage() {
   const [editOpen, setEditOpen] = useState(false);
 
   const [viewOpen, setViewOpen] = useState(false);
+
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState("");
 
   const [selectedApplication, setSelectedApplication] =
     useState<Application | null>(null);
@@ -80,10 +85,37 @@ export default function ApplicationsPage() {
     fetchApplications();
   }, []);
 
+  // ai
+  const handleAISuggestion = async (app: Application) => {
+    try {
+      setAiLoading(true);
+
+      const response = await apiFetch<{
+        success: boolean;
+        data: string;
+      }>("/ai/suggest", {
+        method: "POST",
+        body: JSON.stringify({
+          companyName: app.companyName,
+          jobTitle: app.jobTitle,
+          notes: app.notes,
+        }),
+      });
+
+      if (response.success) {
+        setAiSuggestion(response.data);
+        setAiOpen(true);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   /* =====================================
       Delete
   ====================================== */
-
   const handleDelete = async (id: string) => {
     const result = await Swal.fire({
       title: "Delete Application?",
@@ -750,7 +782,8 @@ export default function ApplicationsPage() {
                       {/* Actions */}
 
                       <td className="px-6 py-5">
-                        <div className="flex justify-end items-center gap-3">
+                        <div className="flex items-center justify-end gap-3">
+                          {/* View */}
                           <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -761,45 +794,81 @@ export default function ApplicationsPage() {
                                 setViewOpen(true);
                               }}
                               className="
-                      rounded-xl
-                      border
-                      border-gray-300
-                      bg-white
-                      px-4
-                      py-2
-                      text-sm
-                      font-medium
-                      text-gray-700
-                      transition
-                      hover:bg-gray-100
-                      dark:border-gray-700
-                      dark:bg-gray-800
-                      dark:text-gray-200
-                      dark:hover:bg-gray-700
-                    "
+          rounded-xl
+          border
+          border-gray-300
+          bg-white
+          px-4
+          py-2
+          text-sm
+          font-medium
+          text-gray-700
+          transition
+          hover:bg-gray-100
+          dark:border-gray-700
+          dark:bg-gray-800
+          dark:text-gray-200
+          dark:hover:bg-gray-700
+        "
                             >
                               View
                             </button>
                           </motion.div>
 
-                          <motion.div
+                          {/* Edit */}
+                          <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={() => {
+                              setSelectedApplication(app);
+                              setEditOpen(true);
+                            }}
+                            className="
+        rounded-xl
+        bg-gradient-to-r
+        from-indigo-600
+        to-violet-600
+        px-4
+        py-2
+        text-sm
+        font-medium
+        text-white
+        shadow-md
+        transition
+        hover:shadow-xl
+      "
                           >
-                            <motion.button
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={() => {
-                                setSelectedApplication(app);
-                                setEditOpen(true);
-                              }}
-                              className="rounded-xl bg-gradient-to-r  from-indigo-600 to-violet-600 px-4 py-2 text-sm font-medium  text-white shadow-md transition hover:shadow-xl"
-                            >
-                              Edit
-                            </motion.button>
-                          </motion.div>
+                            Edit
+                          </motion.button>
 
+                          {/* AI Career Coach */}
                           <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => handleAISuggestion(app)}
+                            className="
+        rounded-xl
+        bg-gradient-to-r
+        from-cyan-500
+        via-indigo-600
+        to-violet-600
+        px-4
+        py-2
+        text-sm
+        font-medium
+        text-white
+        shadow-md
+        transition
+        hover:shadow-xl
+      "
+                          >
+                            {aiLoading ? "Generating..." : "✨ AI"}
+                          </motion.button>
+
+                          {/* Delete */}
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             disabled={deletingId === app.id}
                             onClick={() => handleDelete(app.id)}
                             className="
@@ -815,9 +884,9 @@ export default function ApplicationsPage() {
         shadow-md
         transition
         hover:shadow-xl
-        disabled:opacity-50
         disabled:cursor-not-allowed
-    "
+        disabled:opacity-50
+      "
                           >
                             {deletingId === app.id ? "Deleting..." : "Delete"}
                           </motion.button>
@@ -935,89 +1004,78 @@ export default function ApplicationsPage() {
 
                 {/* Actions */}
 
-                <div className="grid grid-cols-3 gap-3">
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <button
-                      onClick={() => {
-                        setSelectedApplication(app);
-                        setViewOpen(true);
-                      }}
-                      className="
-              flex
-              items-center
-              justify-center
-              rounded-2xl
-              border
-              border-gray-300
-              bg-white
-              py-3
-              text-sm
-              font-semibold
-              text-gray-700
-              transition
-              hover:bg-gray-100
-              dark:border-gray-700
-              dark:bg-gray-800
-              dark:text-gray-200
-              dark:hover:bg-gray-700
-            "
+                <div className="space-y-4">
+                  {/* Action Buttons */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {/* View */}
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      View
-                    </button>
-                  </motion.div>
+                      <button
+                        onClick={() => {
+                          setSelectedApplication(app);
+                          setViewOpen(true);
+                        }}
+                        className="flex items-center justify-center rounded-2xl border border-gray-300 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                      >
+                        View
+                      </button>
+                    </motion.div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <button
-                      onClick={() => {
-                        setSelectedApplication(app);
-                        setEditOpen(true);
-                      }}
-                      className="
-              flex
-              items-center
-              justify-center
-              rounded-2xl
-              bg-gradient-to-r
-              from-indigo-600
-              to-violet-600
-              py-3
-              text-sm
-              font-semibold
-              text-white
-              shadow-lg
-            "
+                    {/* Edit */}
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      Edit
-                    </button>
-                  </motion.div>
+                      <button
+                        onClick={() => {
+                          setSelectedApplication(app);
+                          setEditOpen(true);
+                        }}
+                        className="flex items-center justify-center rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3 text-sm font-semibold text-white shadow-lg"
+                      >
+                        Edit
+                      </button>
+                    </motion.div>
 
+                    {/* Delete */}
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
+                      disabled={deletingId === app.id}
+                      onClick={() => handleDelete(app.id)}
+                      className="rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 py-3 text-sm font-semibold text-white shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {deletingId === app.id ? "Deleting..." : "Delete"}
+                    </motion.button>
+                  </div>
+
+                  {/* AI Button */}
                   <motion.button
-                    disabled={deletingId === app.id}
-                    onClick={() => handleDelete(app.id)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleAISuggestion(app)}
                     className="
-        rounded-xl
-        bg-gradient-to-r
-        from-red-500
-        to-rose-600
-        px-4
-        py-2
-        text-sm
-        font-medium
-        text-white
-        shadow-md
-        transition
-        hover:shadow-xl
-        disabled:opacity-50
-        disabled:cursor-not-allowed
+      flex
+      w-full
+      items-center
+      justify-center
+      gap-2
+      rounded-2xl
+      bg-gradient-to-r
+      from-cyan-500
+      via-indigo-600
+      to-violet-600
+      px-5
+      py-3
+      font-semibold
+      text-white
+      shadow-lg
+      hover:shadow-2xl
     "
                   >
-                    {deletingId === app.id ? "Deleting..." : "Delete"}
+                    ✨ AI Career Coach
                   </motion.button>
                 </div>
               </motion.div>
@@ -1044,6 +1102,12 @@ export default function ApplicationsPage() {
             open={viewOpen}
             application={selectedApplication}
             onClose={() => setViewOpen(false)}
+          />
+
+          <AICareerCoachModal
+            open={aiOpen}
+            onClose={() => setAiOpen(false)}
+            suggestion={aiSuggestion}
           />
 
           {/* ================= Pagination ================= */}
