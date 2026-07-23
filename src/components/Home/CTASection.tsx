@@ -37,23 +37,20 @@ export default function CTASection() {
 
               <h2 className="mt-8 text-4xl font-extrabold leading-tight text-white lg:text-6xl">
                 Organize Every
-                <span className="block">
-                  Job Application
-                </span>
+                <span className="block">Job Application</span>
                 <span className="block text-indigo-200">
                   Like a Professional
                 </span>
               </h2>
 
               <p className="mt-8 max-w-xl text-lg leading-8 text-indigo-100">
-                Stop using spreadsheets and scattered notes. Track
-                applications, interviews and offers in one beautiful,
-                secure dashboard.
+                Stop using spreadsheets and scattered notes. Track applications,
+                interviews and offers in one beautiful, secure dashboard.
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <Link
-                  href="/register"
+                  href="/auth?mode=register"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-indigo-700 transition-all duration-300 hover:-translate-y-1 hover:bg-gray-100 hover:shadow-2xl"
                 >
                   Create Free Account
@@ -61,7 +58,7 @@ export default function CTASection() {
                 </Link>
 
                 <Link
-                  href="/login"
+                  href="/auth?mode=login"
                   className="inline-flex items-center justify-center rounded-xl border border-white/30 px-8 py-4 font-semibold text-white transition hover:bg-white/10"
                 >
                   Login
@@ -115,13 +112,9 @@ function CTAFeature({
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold text-white">
-            {title}
-          </h3>
+          <h3 className="text-xl font-semibold text-white">{title}</h3>
 
-          <p className="mt-2 leading-7 text-indigo-100">
-            {description}
-          </p>
+          <p className="mt-2 leading-7 text-indigo-100">{description}</p>
         </div>
       </div>
     </div>

@@ -46,7 +46,7 @@ export default function HeroSection() {
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/register"
+              href="/auth?mode=register"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-4 font-semibold text-white transition hover:-translate-y-1 hover:bg-indigo-700 hover:shadow-xl"
             >
               Get Started
@@ -54,7 +54,7 @@ export default function HeroSection() {
             </Link>
 
             <Link
-              href="/login"
+              href="/auth?mode=login"
               className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-8 py-4 font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               Login

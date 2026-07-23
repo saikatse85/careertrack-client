@@ -1,9 +1,43 @@
+"use client";
+
 import Link from "next/link";
 import { BriefcaseBusiness, Mail } from "lucide-react";
 
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Footer() {
+  const auth = useContext(AuthContext);
+
+  const user = auth?.user;
+  const router = useRouter();
+
+  const handleDashboardClick = async (
+    e: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (user) {
+      return;
+    }
+
+    e.preventDefault();
+
+    const result = await Swal.fire({
+      icon: "warning",
+      title: "Authentication Required",
+      text: "Please login or register first to access your dashboard.",
+      confirmButtonText: "Go to Login",
+      confirmButtonColor: "#4F46E5",
+    });
+
+    if (result.isConfirmed) {
+      router.push("/auth?mode=login");
+    }
+  };
+
   return (
     <footer className="border-t bg-gray-50 dark:bg-gray-950 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-6 py-14">
@@ -59,12 +93,12 @@ export default function Footer() {
 
             <ul className="mt-5 space-y-3 text-sm">
               <FooterLink href="/" text="Home" />
-
-              <FooterLink href="/dashboard" text="Dashboard" />
-
-              <FooterLink href="/dashboard/applications" text="Applications" />
-
-              <FooterLink href="/login" text="Login" />
+              <FooterLink
+                href="/dashboard"
+                text="Dashboard"
+                onClick={handleDashboardClick}
+              />
+              <FooterLink href="/auth?mode=login" text="Login" />
             </ul>
           </div>
 
@@ -129,11 +163,20 @@ export default function Footer() {
   );
 }
 
-function FooterLink({ href, text }: { href: string; text: string }) {
+function FooterLink({
+  href,
+  text,
+  onClick,
+}: {
+  href: string;
+  text: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}) {
   return (
     <li>
       <Link
         href={href}
+        onClick={onClick}
         className="text-gray-600 transition hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
       >
         {text}

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
 import { AnimatePresence, motion } from "framer-motion";
 
 import LoginForm from "./LoginForm";
@@ -8,7 +10,18 @@ import RegisterForm from "./RegisterForm";
 import AuthSidePanel from "./AuthSidePanel";
 
 export default function AuthContainer() {
+  const searchParams = useSearchParams();
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const mode = searchParams.get("mode");
+
+    if (mode === "register") {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, [searchParams]);
 
   return (
     <AnimatePresence mode="wait">

@@ -164,10 +164,10 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <NavMenuLink href="/auth" text="Login" />
+                  <NavMenuLink href="/auth?mode=login" text="Login" />
 
                   <Link
-                    href="/auth"
+                    href="/auth?mode=register"
                     className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 font-medium text-white transition hover:bg-indigo-700 hover:shadow-lg"
                   >
                     <UserPlus size={18} />
@@ -280,10 +280,10 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <MobileLink href="/auth" text="Login" />
+                  <NavMenuLink href="/auth?mode=login" text="Login" />
 
                   <Link
-                    href="/auth"
+                    href="/auth?mode=register"
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 font-medium text-white"
                   >
